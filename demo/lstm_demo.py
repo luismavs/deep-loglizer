@@ -5,15 +5,15 @@ import sys
 sys.path.append("../")
 import argparse
 from torch.utils.data import DataLoader
+import logging
 
 from deeploglizer.models import LSTM
 from deeploglizer.common.preprocess import FeatureExtractor
 from deeploglizer.common.dataloader import load_sessions, LogDataset
 from deeploglizer.common.utils import seed_everything, dump_final_results, dump_params
 
-import logging
 logger = logging.getLogger("deeploglizer")
-logger.setLevel(level=logging.DEBUG)
+logger.setLevel(level=logging.INFO)
 
 def main(params:dict) -> dict:
 
