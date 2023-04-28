@@ -1,13 +1,10 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# Create a package and push it to a private repo
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python package
+name: Deploy Python package
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -38,3 +35,14 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+    - name: Build Distribution
+      run: |
+        python setup.py sdist bdist_wheel
+
+    - name: Publish package
+      env:
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+          REPOSITORY: ${{ secrets.REPOSITORY }}
+      run: |
+        twine upload --repository-url $REPOSITORY dist/* --verbose --username __token__
