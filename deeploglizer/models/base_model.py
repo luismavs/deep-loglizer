@@ -482,6 +482,7 @@ class ForecastBasedModel(nn.Module):
                 store_dict["window_labels"].extend(
                     tensor2flatten_arr(batch_input["window_labels"])
                 )
+                store_dict['y_prob'].extend(y_pred.data.cpu().numpy())
                 store_dict["x"].extend(batch_input["features"].data.cpu().numpy())
                 store_dict["y_pred_topk"].extend(y_pred_topk.data.cpu().numpy())
                 store_dict["y_prob_topk"].extend(y_prob_topk.data.cpu().numpy())
