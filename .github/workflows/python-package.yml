@@ -1,7 +1,7 @@
 # Create a package and push it to a private repo
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Deploy Python package
+name: Release Python package
 
 on:
   workflow_dispatch: 

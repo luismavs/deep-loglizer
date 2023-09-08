@@ -476,15 +476,16 @@ class ForecastBasedModel(nn.Module):
                 store_dict["session_idx"].extend(
                     tensor2flatten_arr(batch_input["session_idx"])
                 )
-                store_dict["window_anomalies"].extend(
-                    tensor2flatten_arr(batch_input["window_anomalies"])
-                )
+                store_dict["x"].extend(batch_input["features"].data.cpu().numpy())
                 store_dict["window_labels"].extend(
                     tensor2flatten_arr(batch_input["window_labels"])
                 )
-                store_dict["x"].extend(batch_input["features"].data.cpu().numpy())
                 store_dict["y_pred_topk"].extend(y_pred_topk.data.cpu().numpy())
                 store_dict["y_prob_topk"].extend(y_prob_topk.data.cpu().numpy())
+                store_dict['y_prob'].extend(y_pred.data.cpu().numpy())
+                store_dict["window_anomalies"].extend(
+                    tensor2flatten_arr(batch_input["window_anomalies"])
+                )
             infer_end = time.time()
             logger.info("Finish inference. [{:.2f}s]".format(infer_end - infer_start))
             self.time_tracker["test"] = infer_end - infer_start
